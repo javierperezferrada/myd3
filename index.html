@@ -7,13 +7,40 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			//my first d3 code.
-			d3.selectAll("body").append('div');
 			var dataset = [ 5, 10, 15, 20, 25];
+			//representacion de un array con numeros
 			d3.select("body").selectAll("p")
 				.data(dataset)
 				.enter()
 				.append("p")
-				.text(function(d) { return d; });
+				.text(function(d) { return d; })
+				.style("color", function(d) {
+			        if (d > 15) {   //Umbral - 15
+			            return "red";
+			        } else {
+			    	return "black";
+			        }
+			    });
+			
+			//Width and height
+			var w = 500;
+			var h = 50;
+			//first svg arreglo representado por circulos
+			var svg = d3.select("body")
+		        .append("svg")
+		        .attr("width", w)   
+		        .attr("height", h); 
+		    var circles = svg.selectAll("circle")
+	            .data(dataset)
+	            .enter()
+	            .append("circle");
+	        circles.attr("cx", function(d, i) {
+			        return (i * 50) + 25;
+			    })
+			   .attr("cy", h/2)
+			   .attr("r", function(d) {
+			        return d;
+			   });
 		});
 		
 
